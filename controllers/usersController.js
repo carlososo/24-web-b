@@ -36,17 +36,44 @@ const readUser = async(req, res) => {
   
 }
 
-const updateUser = (req = request, res) => {
-  const { params, query } = req
-  res.json({
-    msg:"Modificar usuarios desde controller"
-  })
+const updateUser = async(req = request, res) => {
+  try {
+    const { params, body } = req;
+    const { userId } = params;
+
+    await User.findByIdAndUpdate(userId, body )
+    const userToShow = await User.findById(userId)
+
+    res.status(202).json({
+      msg:"Los Usuarios se Modificaron con éxito",
+      userToShow
+    })
+  } catch (error) {
+    res.status(500).json({
+      msg:"Algo Ocurrio al modificar el registro",
+      error
+    })  
+  }
+  
 }
 
-const deleteUser = (req, res) =>{
-  res.json({
-    msg:"Borrar usuarios desde controller"
-  })
+const deleteUser = async(req = request, res = response) =>{
+  try {
+    const { userId } = req.params;
+    const deleteState = {"active": false}
+    await User.findByIdAndUpdate( userId, deleteState );
+    const userToShow = await User.findById( userId )
+
+    res.status(202).json({
+      msg:"Se Borro el registro",
+      userToShow
+    })
+  } catch (error) {
+    res.status(500).json({
+      msg:"Algo Ocurrio al Eliminar el registro",
+      error
+    })  
+  }
 }
 
 module.exports = {
