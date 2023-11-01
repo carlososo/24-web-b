@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const Database = require('./db/config');
+const { errors } = require("celebrate");
 
 class Server {
   constructor(){
@@ -8,6 +9,7 @@ class Server {
     this.port = process.env.PORT || 3001;
     this.database = new Database();
     this.usersPath = '/api/usuarios';
+    this.servicePath = '/api/services';
     //Middlewares
     this.middlewares();
     //Database connection
@@ -30,7 +32,8 @@ class Server {
   }
 
   router(){
-    this.app.use(this.usersPath, require('./routes/users.routes'))
+    this.app.use(this.usersPath, require('./routes/users.routes'), errors())
+    this.app.use(this.servicePath, require('./routes/services.routes'));
   }
 
   listen(){

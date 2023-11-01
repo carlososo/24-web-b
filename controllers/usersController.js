@@ -22,7 +22,7 @@ const readUser = async(req, res) => {
     const { limit = 10 } = req.query
     const queryParam = {active:true}
     const recordLength = await User.countDocuments()
-    const user = await User.find(queryParam).limit(Number(limit));
+    const user = await User.find(queryParam).limit(Number(limit)).populate("service");
     res.json({
       recordLength,
       user
@@ -33,7 +33,6 @@ const readUser = async(req, res) => {
       error
     })  
   }
-  
 }
 
 const updateUser = async(req = request, res) => {
@@ -61,6 +60,7 @@ const deleteUser = async(req = request, res = response) =>{
   try {
     const { userId } = req.params;
     const deleteState = {"active": false}
+
     await User.findByIdAndUpdate( userId, deleteState );
     const userToShow = await User.findById( userId )
 

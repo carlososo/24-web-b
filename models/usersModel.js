@@ -22,11 +22,19 @@ const UserSchema = Schema({
   active:{
     type: Boolean,
     default: true
-  }
+  },
+  service:{
+    type: Schema.Types.ObjectId,
+    ref: 'Service',
+  },
 })
 
-UserSchema.method('getInitial', function () {
-  return this.userName[0]
-})
+UserSchema.pre('save', async function(next) {
+  if (!this.service) {
+    const defaultService = await Service.findOne({ name: 'NORMAL' });
+    this.service = defaultService._id;
+  }
+  next();
+});
 
 module.exports = model('User', UserSchema)
