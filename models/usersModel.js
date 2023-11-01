@@ -1,6 +1,18 @@
 const { Schema, model } = require("mongoose")
 const Service = require('./servicesModel');
 
+const AddressSchema = Schema({
+  street:{
+    type:String,
+  },
+  number:{
+    type:Number,
+  },
+  city:{
+    type:String,
+  }
+})
+
 
 const UserSchema = Schema({
   userName:{
@@ -27,6 +39,9 @@ const UserSchema = Schema({
   service:{
     type: Schema.Types.ObjectId,
     ref: 'Service',
+  },
+  address:{
+    type:AddressSchema,
   },
 })
 
