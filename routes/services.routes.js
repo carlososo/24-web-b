@@ -5,7 +5,7 @@ const {
   servicePost, 
   servicePut, 
   serviceDel 
-} = require('../controllers/services.controller')
+} = require('../controllers/servicesController')
 
 const router = Router()
 

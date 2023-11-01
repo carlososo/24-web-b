@@ -1,7 +1,7 @@
 const { response, request} = require("express")
 
 //Model - Schema
-const Service = require('../models/services.model');
+const Service = require('../models/servicesModel');
 
 //Read
 const serviceGet = async(req = request, res = response) => {

@@ -6,7 +6,6 @@ const createUser = async(req = request, res = response) => {
     const { body } = req;
     const user = new User(body)
     await user.save()
-
     res.status(201).json({
       user
     })
