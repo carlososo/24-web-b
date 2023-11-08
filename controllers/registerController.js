@@ -1,29 +1,26 @@
 const { response, request } = require("express");
 const User = require("../models/usersModel");
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 
 const registerUser = async (req = request, res = response) => {
   try {
     const { userName, password, email } = req.body;
 
-    res.status(201).json({
-     r: "works"
-    })
+    const user = await User.findOne({ userName })
 
-    if (!userName) {
+    if (!user) {
       const salt = await bcrypt.genSalt(10);
 
-      console.error("Salt", salt)
+      const hashedPassword = await bcrypt.hashSync(password, salt)
+      const user = new User({ userName, email, password: hashedPassword })
+      await user.save()
 
-      bcrypt.hash(password, salt, async (err, hashedPassword) => {
-        const user = new User({ userName, email, password: hashedPassword })
-        await user.save()
-
-        console.error("Hashed", hashedPassword)
-
-        res.status(201).json({
-          h: hashedPassword
-        })
+      res.status(201).json({
+        message: "El usuario fue creado correctamente"
+      })
+    } else {
+      res.status(403).json({
+        message: "El nombre de usuario ya existe"
       })
     }
   } catch (error) {
