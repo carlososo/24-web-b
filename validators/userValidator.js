@@ -12,6 +12,7 @@ const schema = Joi.object().keys({
   phoneNumber : Joi.number().min(8),
   password : Joi.string().min(3).max(30).required(),
   service: Joi.string(),
+  address:Joi.object()
 })
 
 module.exports = { schema }

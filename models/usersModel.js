@@ -1,17 +1,7 @@
 const { Schema, model } = require("mongoose")
 const Service = require('./servicesModel');
+const AddressSchema = require('./addressModel')
 
-const AddressSchema = Schema({
-  street:{
-    type:String,
-  },
-  number:{
-    type:Number,
-  },
-  city:{
-    type:String,
-  }
-})
 
 
 const UserSchema = Schema({
