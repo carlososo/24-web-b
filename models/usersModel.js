@@ -28,18 +28,20 @@ const UserSchema = Schema({
   phoneNumber:{
     type:Number
   },
-  password:{
-    type:String,
+  password: {
+    type: String,
     required: [true, "El password es requerido"]
   },
   active:{
     type: Boolean,
     default: true
   },
+  // Normalizado (como seria en SQL)
   service:{
     type: Schema.Types.ObjectId,
     ref: 'Service',
   },
+  // Embedido
   address:{
     type:AddressSchema,
   },
