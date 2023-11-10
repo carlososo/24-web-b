@@ -10,6 +10,7 @@ class Server {
     this.database = new Database();
     this.usersPath = '/api/usuarios';
     this.servicePath = '/api/services';
+    this.authPath = '/api/auth';
     //Middlewares
     this.middlewares();
     //Database connection
@@ -34,6 +35,7 @@ class Server {
   router(){
     this.app.use(this.usersPath, require('./routes/users.routes'), errors())
     this.app.use(this.servicePath, require('./routes/services.routes'));
+    this.app.use(this.authPath, require('./routes/auth.routes'));
   }
 
   listen(){
