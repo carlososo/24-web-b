@@ -21,6 +21,7 @@ const createUser = async(req = request, res = response) => {
     })
   }
 }
+
 const readUser = async(req, res) => {
   try {
     const { limit = 10 } = req.query

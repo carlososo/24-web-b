@@ -15,4 +15,15 @@ const schema = Joi.object().keys({
   address:Joi.object()
 })
 
-module.exports = { schema }
+
+const schemaServices = Joi.object().keys({
+  name: Joi.string().min(3).max(30).required(),
+  active: Joi.boolean(),
+  price: Joi.number().required()
+})
+
+
+module.exports = { 
+  schema,
+  schemaServices
+}

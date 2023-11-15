@@ -7,11 +7,14 @@ const {
   serviceDel 
 } = require('../controllers/servicesController');
 const { validarJWT } = require('../middlewares/validar-jwt');
+const { 
+  celebrateValidatorServices 
+} = require("../middlewares/celebrateValidator");
 
 const router = Router()
 
 //CRUD 
-router.post("/", validarJWT , servicePost );//C
+router.post("/", validarJWT, celebrateValidatorServices , servicePost );//C
 router.get("/", serviceGet );//R
 router.put("/:id", servicePut ); //U
 router.delete("/:id", serviceDel );//D
